@@ -2,7 +2,6 @@
 ## 2019100755 정진영입니다.
 
 import pandas as pd
-
 import matplotlib.pyplot as plt
 
 import seaborn as sns
