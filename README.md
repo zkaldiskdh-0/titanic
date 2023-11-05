@@ -73,3 +73,13 @@ sex_mapping = {"male":0, "female":1}
 
 for dataset in train_test_data:
     dataset['Sex'] = dataset['Sex'].map(sex_mapping)
+
+데이터 전처리(가족,동승자 여부)
+
+for dataset in train_test_data:
+    # 가족수 = 형제자매 + 부모님 + 자녀 + 본인
+    dataset['FamilySize'] = dataset['SibSp'] + dataset['Parch'] + 1
+    dataset['IsAlone'] = 1
+    
+    # 가족수 > 1이면 동승자 있음
+    dataset.loc[dataset['FamilySize'] > 1, 'IsAlone'] = 0
