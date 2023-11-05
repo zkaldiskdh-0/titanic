@@ -105,3 +105,18 @@ df = pd.DataFrame(class_list)
 df.index = ['1st', '2nd', '3rd']
 
 df.plot(kind="bar", figsize=(10,5))
+
+결과 Q지역이 다른지역보다 등급이 낮아보이나, 승객 대부분이 S지역에서 탑승했으므로 Embarked의 결측치는 S로 채움
+
+for dataset in train_test_data:
+    
+    dataset['Embarked'] = dataset['Embarked'].fillna('S')
+
+embarked_mapping = {'S':0, 'C':1, 'Q':2}
+
+for dataset in train_test_data:
+    
+    dataset['Embarked'] = dataset['Embarked'].map(embarked_mapping)
+    
+
+train.head()
