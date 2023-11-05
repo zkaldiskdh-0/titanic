@@ -32,7 +32,9 @@ test.isnull().sum()
 데이터 시각화
 ------
 def bar_chart(feature):
+    
     # 각 column(=feature)에서 생존자 수 count
+    
     survived = train[train['Survived']==1][feature].value_counts()
     
     # 각 column(=feature)에서 사망자 수 count
@@ -45,5 +47,7 @@ def bar_chart(feature):
     df.index = ['Survived', 'Dead']
     
     # plot을 그린다.
+    
     df.plot(kind='bar', stacked=True, figsize=(10,5))
+
 #     return df
