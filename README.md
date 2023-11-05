@@ -12,7 +12,9 @@ train = pd.read_csv('./train.csv')
 test = pd.read_csv('./test.csv')
 
 train.head()
+
 분석에 필요한 패키지들을 Import하고 데이터를 불러온다.
+
 데이터 분석
 ---------
 train.shape
@@ -22,3 +24,7 @@ test.shape
 (418, 11)
 
 train.info() #데이터 정보분석
+
+train.isnull().sum() #결측치 개수 정보
+
+test.isnull().sum() 
