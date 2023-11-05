@@ -120,3 +120,56 @@ for dataset in train_test_data:
     
 
 train.head()
+
+데이터 전처리(이름)
+이름으로 Mr,Mrs/ Ms로 혼인 여부를 판단 또 성별 혼인여부를 반영할 수 있으므로 추출
+
+for dataset in train_test_data:
+    
+    dataset['Title'] = dataset['Name'].str.extract('([\w]+)\.', expand=False)
+
+train.head()#확인
+
+train['Title'].value_counts()
+
+test['Title'].value_counts()
+
+for dataset in train_test_data:
+   
+    dataset['Title'] = dataset['Title'].apply(lambda x: 0 if x=="Mr" else 1 if x=="Miss" else 2 if x=="Mrs" else 3 if x=="Master" else 4) #각 호칭들을 숫자에 매핑, Mr Miss Mrs 이외는 하나로 취급
+
+train['Title'].value_counts()
+
+test['Title'].value_counts()
+
+bar_chart('Title') # 분포 확인후 시각화
+
+시각화 결과 Mr의 사망률이 높음, 또 혼인하지않은 Miss가 사망률이 더 높다. Master의 경우 유아가 많아 생존률이 더 높음
+
+데이터 전처리(방 번호)
+
+train['Cabin'].value_counts()
+
+train['Cabin'] = train['Cabin'].str[:1] # 숫자제외 알파벳 추출
+
+class_list=[]
+
+for i in range(1,4):
+    
+    a = train[train['Pclass'] == i]['Cabin'].value_counts()
+    
+    class_list.append(a)
+
+
+df = pd.DataFrame(class_list)
+
+df.index = ['1st', '2nd', '3rd']
+
+df.plot(kind="bar", figsize=(10,5))
+
+등급별 생존율로 보았을 때 1등급이 가장 높고 3등급의 사망률이 가장 높다.
+
+데이터 전처리(나이)
+
+for dataset in train_test_data:
+    dataset['Age'].fillna(dataset.groupby("Title")["Age"].transform("median"), inplace=True
