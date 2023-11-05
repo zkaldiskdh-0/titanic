@@ -64,7 +64,7 @@ bar_chart('SibSp')
 
 데이터 전처리
 -----
-sex
+데이터 전처리(성별)
 
 train_test_data = [train, test]
 
