@@ -64,7 +64,7 @@ bar_chart('SibSp')
 
 데이터 전처리
 -----
-## 데이터 전처리(성별)
+### 데이터 전처리(성별)
 
 train_test_data = [train, test]
 
@@ -89,7 +89,7 @@ for dataset in train_test_data:
     
     dataset.loc[dataset['FamilySize'] > 1, 'IsAlone'] = 0
 
-## 데이터 전처리(승객 등급)
+### 데이터 전처리(승객 등급)
 
 class_list=[]
 
@@ -121,7 +121,7 @@ for dataset in train_test_data:
 
 train.head()
 
-## 데이터 전처리(이름)
+### 데이터 전처리(이름)
 이름으로 Mr,Mrs/ Ms로 혼인 여부를 판단 또 성별 혼인여부를 반영할 수 있으므로 추출
 
 for dataset in train_test_data:
@@ -146,7 +146,7 @@ bar_chart('Title') # 분포 확인후 시각화
 
 시각화 결과 Mr의 사망률이 높음, 또 혼인하지않은 Miss가 사망률이 더 높다. Master의 경우 유아가 많아 생존률이 더 높음
 
-## 데이터 전처리(방 번호)
+### 데이터 전처리(방 번호)
 
 train['Cabin'].value_counts()
 
@@ -169,7 +169,7 @@ df.plot(kind="bar", figsize=(10,5))
 
 등급별 생존율로 보았을 때 1등급이 가장 높고 3등급의 사망률이 가장 높다.
 
-## 데이터 전처리(나이)
+### 데이터 전처리(나이)
 
 for dataset in train_test_data:
     dataset['Age'].fillna(dataset.groupby("Title")["Age"].transform("median"), inplace=True
