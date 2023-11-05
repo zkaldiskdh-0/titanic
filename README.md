@@ -51,3 +51,8 @@ def bar_chart(feature):
     df.plot(kind='bar', stacked=True, figsize=(10,5))
 
      #return df
+
+bar_chart('Sex')
+bar_chart('Pclass')
+bar_chart('Embarked')
+bar_chart('SibSp')
