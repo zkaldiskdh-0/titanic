@@ -172,4 +172,48 @@ df.plot(kind="bar", figsize=(10,5))
 ### 데이터 전처리(나이)
 
 for dataset in train_test_data:
-    dataset['Age'].fillna(dataset.groupby("Title")["Age"].transform("median"), inplace=True
+    dataset['Age'].fillna(dataset.groupby("Title")["Age"].transform("median"), inplace=True #그룹으로 묶고 그룹별 중간값으로 결측치를 대체
+
+g = sns.FacetGrid(train, hue="Survived", aspect=4)
+g = (g.map(sns.kdeplot, "Age").add_legend()) # add_legend()는 범주를 추가하는 파라미터이다.
+
+for dataset in train_test_data:
+    dataset['Agebin'] = pd.cut(dataset['Age'], 5, labels=[0,1,2,3,4]) #그룹을 청소년,청년,중년,장년,노년의 5개로 나눔
+
+### 데이터 전처리(요금)
+
+for dataset in train_test_data:
+    
+    dataset["Fare"].fillna(dataset.groupby("Pclass")["Fare"].transform("median"), inplace=True) # 요금은 등급이 높을수록 비싸니, 등급별 중간값으로 결측치 대체
+
+g = sns.FacetGrid(train, hue="Survived", aspect=4)
+
+g = (g.map(sns.kdeplot, "Fare")
+     .add_legend() # 범주 추가
+     .set(xlim=(0, train['Fare'].max()))) # x축 범위 설정
+
+for dataset in train_test_data:
+   
+    dataset['Farebin'] = pd.qcut(dataset['Fare'], 4, labels=[0,1,2,3])
+
+pd.qcut(train['Fare'], 4) #확인
+
+drop_column = ['Name', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin']
+
+for dataset in train_test_data:
+    
+    dataset = dataset.drop(drop_column, axis=1, inplace=True) #전처리 이후 훈련에 사용되지않는 Column삭제
+
+train.head()#확인
+
+train.info()
+
+test.info()
+
+데이터학습
+---------
+drop_column2 = ['PassengerId', 'Survived']
+
+train_data = train.drop(drop_column2, axis=1)
+
+target = train['Survived'] #PassengerId는 이용하지 없는 데이터이므로 삭제, Survived는 결과값에 해당하므로 삭제
