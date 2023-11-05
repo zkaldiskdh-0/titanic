@@ -61,3 +61,14 @@ bar_chart('Embarked')
 bar_chart('SibSp')
 
 데이터 시각화 후 분석결과 남<여 생존, 1등급, 가족존재 승객의 생존율이 높음, 탑승지역은 비율상 S 승객이 많이 사망
+
+데이터 전처리
+-----
+
+train_test_data = [train, test]
+
+
+sex_mapping = {"male":0, "female":1}
+
+for dataset in train_test_data:
+    dataset['Sex'] = dataset['Sex'].map(sex_mapping)
