@@ -88,3 +88,20 @@ for dataset in train_test_data:
     # 가족수 > 1이면 동승자 있음
     
     dataset.loc[dataset['FamilySize'] > 1, 'IsAlone'] = 0
+
+데이터 전처리(승객 등급)
+
+class_list=[]
+
+for i in range(1,4):
+   
+    series = train[train['Pclass'] == i]['Embarked'].value_counts()
+   
+    class_list.append(series)
+
+
+df = pd.DataFrame(class_list)
+
+df.index = ['1st', '2nd', '3rd']
+
+df.plot(kind="bar", figsize=(10,5))
