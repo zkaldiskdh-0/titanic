@@ -52,7 +52,7 @@ def bar_chart(feature):
 
      #return df
 
-bar_chart('Sex')
+bar_chart('Sex') #그래프로 시각화
 
 bar_chart('Pclass')
 
