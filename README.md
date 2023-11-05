@@ -217,3 +217,64 @@ drop_column2 = ['PassengerId', 'Survived']
 train_data = train.drop(drop_column2, axis=1)
 
 target = train['Survived'] #PassengerId는 이용하지 없는 데이터이므로 삭제, Survived는 결과값에 해당하므로 삭제
+
+from sklearn.tree import DecisionTreeClassifier # 의사결정나무
+
+from sklearn.ensemble import RandomForestClassifier # 랜덤 포레스트
+
+from sklearn.naive_bayes import GaussianNB # 나이브 베이즈 분류
+
+from sklearn.svm import SVC # 서포트 벡터 머신
+
+from sklearn.linear_model import LogisticRegression # 로지스틱 회귀
+
+clf = LogisticRegression()
+
+clf.fit(train_data, target)
+
+clf.score(train_data, target) #모델별 점수 출력 (로지스틱 회귀)
+
+clf = DecisionTreeClassifier()
+
+clf.fit(train_data, target)
+
+clf.score(train_data, target) #모델별 점수 출력 (의사결정나무)
+
+clf = RandomForestClassifier()
+
+clf.fit(train_data, target)
+
+clf.score(train_data, target) #모델별 점수 출력 (랜덤결정나무)
+
+clf = GaussianNB()
+
+clf.fit(train_data, target)
+
+clf.score(train_data, target) #모델별 점수 출력 (나이브 베이즈 분류)
+
+clf = SVC()
+
+clf.fit(train_data, target)
+
+clf.score(train_data, target) #모델별 점수 출력 (서포트 벡터 머신)
+
+clf = DecisionTreeClassifier()
+
+clf.fit(train_data, target)
+
+test_data = test.drop("PassengerId", axis=1)
+
+predict = clf.predict(test_data) 
+
+submission = pd.DataFrame({
+    
+    'PassengerId' : test['PassengerId'],
+    
+    'Survived' : predict})
+
+
+submission.to_csv('submission.csv', index=False) # 가장 점수가 높은 의사결정나무를 적용 후 PassengerId삭제
+
+submission = pd.read_csv("submission.csv")
+
+submission.head() #예측결과를 PassengerId와 매치시켜 데이터프레임으로 묶은뒤 저장
